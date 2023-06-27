@@ -4,6 +4,7 @@ import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { jwtConstants } from './constants';
+import { GoogleStrategy } from 'src/google.strategy';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { jwtConstants } from './constants';
       signOptions: { expiresIn: '1D' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, GoogleStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })

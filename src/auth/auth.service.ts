@@ -45,4 +45,22 @@ export class AuthService {
     });
   }
 
+  async googleLogin(req: any){
+    if(!req.user){
+      return {
+        status: 404,
+        message: "No user found from google"
+      };
+    }
+
+    return this.usersService.CreateUser(req.user).then((res) =>{
+      return {
+        message: "User info from google",
+        user: res
+      }
+    }).catch(e => {
+      return e.message;
+    })
+
+  }
 }

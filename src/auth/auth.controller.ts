@@ -1,6 +1,5 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
-
-import { AuthGuard } from './auth.guard';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Req, Request, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { User } from 'src/users/entities/user.entity';
 
@@ -18,4 +17,18 @@ export class AuthController {
     signUp(@Body() userData: User){
         return this.authService.signUp(userData);
     }
+
+    @Get('google')
+    @UseGuards(AuthGuard('google'))
+    async googleAuth() {
+        // Initiates the Google OAuth flow
+    }
+
+    @Get('google/callback')
+    @UseGuards(AuthGuard('google'))
+    async googleAuthRedirect(@Req() req) {
+        const user = this.authService.googleLogin(req);
+        return user;
+    }
+
 }

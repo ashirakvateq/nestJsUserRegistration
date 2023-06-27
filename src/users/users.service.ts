@@ -60,6 +60,21 @@ export class UsersService {
         })
     }
 
+    async CreateUser(user: CreateUser): Promise<any> {
+        if (!user.userName) {
+            const username = user.email.split('@')[0];
+            const uniqueUsername = username;
+            user.userName = uniqueUsername; 
+        }
+      
+        return this.userRepository.insert(user).then((res) => {
+            return res;
+        }).catch(e => {
+            return e;
+        })
+        
+    }
+
     async getProfile(token: string): Promise<any> {
         const user = await this.helperService.GetUserByToken(token);
         return await this.userRepository.findOne({ where: { id: user.id } }).then(async (res) => {

@@ -5,10 +5,10 @@ export class User {
     @PrimaryGeneratedColumn({type:'int'})
     id: number;
 
-    @Column({type:'varchar'})
+    @Column({type:'varchar', nullable: true})
     firstName: string
 
-    @Column({type:'varchar'})
+    @Column({type:'varchar', nullable: true})
     lastName: string
 
     @Column({type:'varchar'})
@@ -17,7 +17,7 @@ export class User {
     @Column({type:'varchar', unique: true})
     email: string 
 
-    @Column({type:'varchar'})
+    @Column({type:'varchar', nullable: true})
     password: string 
 
     @Column({type: 'boolean', default: false})
